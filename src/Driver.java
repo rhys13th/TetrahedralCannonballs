@@ -14,17 +14,19 @@ import java.util.*;
 public class Driver
 {
     private static int problemsToSolve = 0;
+    private static int sizeofBase;
     private static Scanner myScanner = new Scanner(System.in);
     public static void main(String[] args)
     {
         problemsToSolve = myScanner.nextInt();
-        int sizeofBase;
-        for(int i = 0; i < problemsToSolve; i++)
+        String[] myAnswers = new String[problemsToSolve];
+        for(int i = 1; i <= problemsToSolve; i++)
         {
             sizeofBase = myScanner.nextInt();
-            System.out.println(i + ": " + sizeofBase + " " + loopedArea(sizeofBase));
-            System.out.println("The mathematical version says the area is " + mathArea(sizeofBase));
+
+            myAnswers[i-1] = (i + ": " + sizeofBase + " " + loopedArea(sizeofBase));
         }
+        printAnswers(myAnswers);
     }
 
     //The simplest way to find the area of a pyramidical stack is with loops, since the base has n x n cannonballs
@@ -36,14 +38,20 @@ public class Driver
         //now, from the base to the last cannonball, decrementing i, we add the area of each row to the total area
         for(int i = base; i > 0; i--)
         {
-            area += (i * i);
+            for(int j = i; j > 0; j--)
+            {
+                area += j;
+            }
         }
         //and return that sum
         return area;
     }
 
-    private static int mathArea(int base)
+    private static void printAnswers(String[] answers)
     {
-        return ((base * base * base)/3 + (base * base)/2 + (base/6));
+        for(int i = 0; i < answers.length; i++)
+        {
+            System.out.println(answers[i]);
+        }
     }
 }
